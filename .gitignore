@@ -196,3 +196,4 @@ cython_debug/
 # Streamlit
 .streamlit/secrets.toml
 .vs/
+.ruff_cache/
