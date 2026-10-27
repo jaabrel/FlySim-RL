@@ -1364,8 +1364,10 @@ class DashboardApp:
         self.frame_canvas_mapa.update_idletasks()
         self.canvas_scroll_mapa.configure(scrollregion=self.canvas_scroll_mapa.bbox("all"))
 
+    def main():
+        root = tk.Tk()
+        DashboardApp(root)
+        root.mainloop()
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = DashboardApp(root)
-    root.mainloop()
+    if __name__ == "__main__":
+        main()

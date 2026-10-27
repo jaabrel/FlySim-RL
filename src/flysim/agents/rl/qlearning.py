@@ -17,6 +17,8 @@ import random
 import numpy as np
 
 from flysim.agents.base import Agent
+from flysim.agents.bio_inspired import BioInspiredAgent
+from flysim.agents.simple_upwind import SimpleUpwindAgent
 from flysim.plume.kernels import get_plume_center_y
 
 
@@ -232,8 +234,7 @@ class QLearningAgent:
             num_episodes: Quantidade de episódios a treinar.
             print_every: Intervalo de episódios para apresentação do progresso no terminal.
         """
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        pasta_logs = os.path.join(base_dir, "logs")
+        pasta_logs = "logs"
         os.makedirs(pasta_logs, exist_ok=True)
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         log_filename = os.path.join(pasta_logs, f"treino_{timestamp}.log")
@@ -414,8 +415,7 @@ class QLearningAgent:
             pickle.dump(data, f)
 
         # Guarda e sincroniza o ficheiro de log do treino na pasta logs
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        pasta_logs = os.path.join(base_dir, "logs")
+        pasta_logs = "logs"
         os.makedirs(pasta_logs, exist_ok=True)
         if getattr(self, "current_log_file", None) and os.path.exists(self.current_log_file):
             import shutil
@@ -921,4 +921,6 @@ class QLearningSimAgent(Agent):
 
 AGENT_REGISTRY = {
     "QLearningAgent": QLearningSimAgent,
+    "BioInspiredAgent": BioInspiredAgent,
+    "SimpleUpwindAgent": SimpleUpwindAgent,
 }

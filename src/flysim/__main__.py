@@ -14,7 +14,7 @@ from flysim.simulation.runner import Simulator
 
 
 def main():
-    DEFAULT_CONFIG = {
+    default_config = {
         "dt": 0.1,
         "max_time": 300.0,
         "save_path": "experiments",
@@ -85,10 +85,10 @@ def main():
 
     if not os.path.exists(config_file_path):
         with open(config_file_path, "w") as f:
-            json.dump(DEFAULT_CONFIG, f, indent=4)
+            json.dump(default_config, f, indent=4)
 
     with open(config_file_path) as f:
-        CONFIG = json.load(f)
+        config = json.load(f)
 
     pasta_modelos = "modelos"
     os.makedirs(pasta_modelos, exist_ok=True)
@@ -110,55 +110,55 @@ def main():
     root.minsize(480, 520)
 
     # Paleta de Cores Clara
-    BG_MAIN = "#f1f5f9"
-    BG_CARD = "#ffffff"
-    BORDER_COLOR = "#cbd5e1"
-    TEXT_DARK = "#0f172a"
-    TEXT_MUTED = "#64748b"
-    PRIMARY_COLOR = "#0284c7"
+    bg_main = "#f1f5f9"
+    bg_card = "#ffffff"
+    border_color = "#cbd5e1"
+    text_dark = "#0f172a"
+    text_muted = "#64748b"
+    primary_color = "#0284c7"
 
-    root.configure(bg=BG_MAIN)
+    root.configure(bg=bg_main)
     root.option_add("*TCombobox*Listbox.background", "#ffffff")
     root.option_add("*TCombobox*Listbox.foreground", "#0f172a")
-    root.option_add("*TCombobox*Listbox.selectBackground", PRIMARY_COLOR)
+    root.option_add("*TCombobox*Listbox.selectBackground", primary_color)
     root.option_add("*TCombobox*Listbox.selectForeground", "#ffffff")
 
     style = ttk.Style(root)
     style.theme_use("clam")
 
     # Configurações do TTK para Tema Claro
-    style.configure(".", background=BG_MAIN, foreground=TEXT_DARK)
-    style.configure("TFrame", background=BG_MAIN)
-    style.configure("Card.TLabelframe", background=BG_CARD, bordercolor=BORDER_COLOR)
+    style.configure(".", background=bg_main, foreground=text_dark)
+    style.configure("TFrame", background=bg_main)
+    style.configure("Card.TLabelframe", background=bg_card, bordercolor=border_color)
     style.configure(
         "Card.TLabelframe.Label",
-        background=BG_CARD,
-        foreground=TEXT_DARK,
+        background=bg_card,
+        foreground=text_dark,
         font=("Segoe UI", 10, "bold"),
     )
-    style.configure("TLabel", background=BG_CARD, foreground=TEXT_DARK, font=("Segoe UI", 9))
-    style.configure("Muted.TLabel", background=BG_CARD, foreground=TEXT_MUTED, font=("Segoe UI", 8))
-    style.configure("TRadiobutton", background=BG_CARD, foreground=TEXT_DARK, font=("Segoe UI", 9))
+    style.configure("TLabel", background=bg_card, foreground=text_dark, font=("Segoe UI", 9))
+    style.configure("Muted.TLabel", background=bg_card, foreground=text_muted, font=("Segoe UI", 8))
+    style.configure("TRadiobutton", background=bg_card, foreground=text_dark, font=("Segoe UI", 9))
     style.configure(
-        "TEntry", fieldbackground="#ffffff", foreground=TEXT_DARK, insertcolor=TEXT_DARK
+        "TEntry", fieldbackground="#ffffff", foreground=text_dark, insertcolor=text_dark
     )
     style.map(
         "TEntry",
         fieldbackground=[("!disabled", "#ffffff"), ("disabled", "#f1f5f9")],
-        foreground=[("!disabled", TEXT_DARK), ("disabled", TEXT_MUTED)],
+        foreground=[("!disabled", text_dark), ("disabled", text_muted)],
     )
     style.configure(
-        "TCombobox", fieldbackground="#ffffff", foreground=TEXT_DARK, background="#ffffff"
+        "TCombobox", fieldbackground="#ffffff", foreground=text_dark, background="#ffffff"
     )
     style.map(
         "TCombobox",
         fieldbackground=[("readonly", "#ffffff"), ("!disabled", "#ffffff")],
-        foreground=[("readonly", TEXT_DARK), ("!disabled", TEXT_DARK)],
+        foreground=[("readonly", text_dark), ("!disabled", text_dark)],
     )
 
     style.configure(
         "Action.TButton",
-        background=PRIMARY_COLOR,
+        background=primary_color,
         foreground="#ffffff",
         font=("Segoe UI", 10, "bold"),
         padding=8,
@@ -208,7 +208,7 @@ def main():
             import matplotlib.pyplot as plt
 
             janela_dashboard = tk.Toplevel(root)
-            app_dash = DashboardApp(janela_dashboard)
+            DashboardApp(janela_dashboard)
 
             def fechar_dashboard():
                 plt.close("all")
@@ -244,15 +244,15 @@ def main():
         root.destroy()
 
     # --- CABEÇALHO ---
-    header_frame = tk.Frame(root, bg=BG_CARD, bd=1, relief="solid", padx=16, pady=10)
+    header_frame = tk.Frame(root, bg=bg_card, bd=1, relief="solid", padx=16, pady=10)
     header_frame.pack(fill=tk.X, padx=14, pady=(12, 6))
 
     lbl_logo = tk.Label(
         header_frame,
         text="Simulador de Pluma & Reinforcement Learning",
         font=("Segoe UI", 12, "bold"),
-        bg=BG_CARD,
-        fg=TEXT_DARK,
+        bg=bg_card,
+        fg=text_dark,
     )
     lbl_logo.pack(anchor="w")
 
@@ -260,8 +260,8 @@ def main():
         header_frame,
         text="Navegação Robótica Subaquática",
         font=("Segoe UI", 9),
-        bg=BG_CARD,
-        fg=TEXT_MUTED,
+        bg=bg_card,
+        fg=text_muted,
     )
     lbl_sublogo.pack(anchor="w", pady=(1, 0))
 
@@ -308,7 +308,7 @@ def main():
         command=atualizar_interface,
     ).pack(anchor=tk.W, pady=(2, 2))
 
-    frame_novo_nome = tk.Frame(frame_treino, bg=BG_CARD)
+    frame_novo_nome = tk.Frame(frame_treino, bg=bg_card)
     frame_novo_nome.pack(fill=tk.X, padx=18, pady=(1, 6))
     ttk.Label(frame_novo_nome, text="Nome do modelo:").pack(anchor=tk.W)
     entry_nome_novo = ttk.Entry(frame_novo_nome, textvariable=var_nome_novo, width=42)
@@ -322,7 +322,7 @@ def main():
         command=atualizar_interface,
     ).pack(anchor=tk.W, pady=(4, 2))
 
-    frame_continuar = tk.Frame(frame_treino, bg=BG_CARD)
+    frame_continuar = tk.Frame(frame_treino, bg=bg_card)
     frame_continuar.pack(fill=tk.X, padx=18, pady=(1, 6))
     combo_modelo_treino = ttk.Combobox(
         frame_continuar,
@@ -333,7 +333,7 @@ def main():
     )
     combo_modelo_treino.pack(anchor=tk.W)
 
-    frame_ep = tk.Frame(frame_treino, bg=BG_CARD)
+    frame_ep = tk.Frame(frame_treino, bg=bg_card)
     frame_ep.pack(fill=tk.X, padx=4, pady=(6, 2))
     ttk.Label(frame_ep, text="Número de episódios:").pack(anchor=tk.W)
     entry_ep = ttk.Entry(frame_ep, textvariable=var_episodios, width=16)
@@ -366,7 +366,7 @@ def main():
             frame_simular,
             text="Nenhum modelo treinado encontrado na pasta 'modelos'.",
             font=("Segoe UI", 8),
-            bg=BG_CARD,
+            bg=bg_card,
             fg="#dc2626",
         ).pack(anchor=tk.W, pady=(0, 6))
 
@@ -403,17 +403,17 @@ def main():
     if escolhas["acao"] == "treinar":
         nome_treino = (escolhas.get("nome_guardar") or escolhas.get("modelo_alvo") or "").lower()
         if "linear" in nome_treino:
-            CONFIG["meander_model"] = "linear"
+            config["meander_model"] = "linear"
             print(
                 "\n[+] Treino Linear detetado. Ambiente configurado com meander_model = 'linear'."
             )
         elif "sinusoid" in nome_treino:
-            CONFIG["meander_model"] = "sum_of_sinusoids"
+            config["meander_model"] = "sum_of_sinusoids"
             print(
                 "\n[+] Treino Sinusoidal detetado. Ambiente configurado com meander_model = 'sum_of_sinusoids'."
             )
 
-        env = PlumeRLWrapper(CONFIG)
+        env = PlumeRLWrapper(config)
         agent = QLearningAgent(env)
 
         if escolhas["tipo_treino"] == "continuar" and escolhas["modelo_alvo"]:
@@ -435,45 +435,45 @@ def main():
 
         caminho_salvo = agent.save(filename=escolhas.get("nome_guardar"))
 
-        if CONFIG.get("visualize", True):
+        if config.get("visualize", True):
             nome_ficheiro = os.path.basename(caminho_salvo)
 
-            CONFIG["agent_class"] = "QLearningAgent"
-            CONFIG["model_to_load"] = caminho_salvo
-            CONFIG["trained_q_agent"] = agent
-            CONFIG["num_experiments"] = 5
+            config["agent_class"] = "QLearningAgent"
+            config["model_to_load"] = caminho_salvo
+            config["trained_q_agent"] = agent
+            config["num_experiments"] = 5
 
             print("\n[!] Treino concluído com sucesso!")
             print(
                 f"\n[!] A iniciar o simulador para mostrar os últimos 5 episódios do treino atual ({nome_ficheiro})...\n"
             )
 
-            sim = Simulator(CONFIG)
+            sim = Simulator(config)
             sim.run()
 
     elif escolhas["acao"] == "simular":
         ficheiro_escolhido = os.path.join(pasta_modelos, escolhas["modelo_alvo"])
 
-        CONFIG["agent_class"] = "QLearningAgent"
-        CONFIG["model_to_load"] = ficheiro_escolhido
-        CONFIG["trained_q_agent"] = None
-        CONFIG["num_experiments"] = 5
+        config["agent_class"] = "QLearningAgent"
+        config["model_to_load"] = ficheiro_escolhido
+        config["trained_q_agent"] = None
+        config["num_experiments"] = 5
 
         nome_alvo_low = escolhas["modelo_alvo"].lower()
         if "sinusoid" in nome_alvo_low:
-            CONFIG["meander_model"] = "sum_of_sinusoids"
+            config["meander_model"] = "sum_of_sinusoids"
             print(
                 f"\n[+] Modelo Sinusoidal detetado ({escolhas['modelo_alvo']}). Configurando simulador com meander_model = 'sum_of_sinusoids'."
             )
         else:
-            CONFIG["meander_model"] = "linear"
+            config["meander_model"] = "linear"
             print(
                 f"\n[+] Modelo Linear detetado ({escolhas['modelo_alvo']}). Configurando simulador com meander_model = 'linear'."
             )
 
         print(f"\nIniciando Simulador com: QLearningAgent usando {ficheiro_escolhido}")
 
-        sim = Simulator(CONFIG)
+        sim = Simulator(config)
         sim.run()
 
 

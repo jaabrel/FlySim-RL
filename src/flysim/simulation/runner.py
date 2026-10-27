@@ -965,7 +965,6 @@ class Simulator:
 
         # 5. Draw updated text info
         font_scale = 0.55
-        hz = 1.0 / self.loop_time_ema if self.loop_time_ema > 0 else 0.0
         flow_vec = self.agent.measured_flow_direction
         state_str = self.agent.state.upper()
         if getattr(self.agent, "low_battery_direct_return", False):

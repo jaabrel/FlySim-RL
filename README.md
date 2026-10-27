@@ -4,20 +4,6 @@
 
 Este projeto foi desenvolvido no âmbito académico na **Universidade Politécnica de Tomar (UPT)** por **João Alexandre de Abreu** e **Rodrigo Mendes Pinheiro**.
 
-## Instalação e Requisitos
-
-**Python 3.8+**
-
-```bash
-pip install numpy numba opencv-python h5py gymnasium matplotlib
-```
-
-## Execução:
-
-```bash
-python main.py
-```
-
 ## 🏗️ Estrutura do Repositório
 ```text
 FlySim-RL/
