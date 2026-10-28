@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, list
+from typing import Any
 
 
 @dataclass
@@ -34,7 +34,7 @@ class SinusoidMeanderConfig:
     v_var: float = 8.0
     amplitude: float = 8.0
     frequency: float = 0.018
-    integral_length_scale_L: float = 22.0
+    integral_length_scale_L: float = 22.0  # noqa: N815
     puff_expansion_rate: float = 0.29
     turbulence_intensity: float = 0.18
     drift_correction_timescale: float = 10.0

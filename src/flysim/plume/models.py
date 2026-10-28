@@ -101,8 +101,8 @@ class SinusoidMeanderModel(MeanderModel):
         """
         amplitude = self.model_config.get("amplitude", self.model_config.get("v_var", 8.0))
         wind_speed = np.linalg.norm(self.main_config.get("mean_wind_velocity", [0.4, 0.0]))
-        L = self.model_config.get("integral_length_scale_L", 22.0)
-        default_freq = (wind_speed / L) if L > 0 else 0.018
+        length_scale = self.model_config.get("integral_length_scale_L", 22.0)
+        default_freq = (wind_speed / length_scale) if length_scale > 0 else 0.018
         frequency = self.model_config.get("frequency", default_freq)
         two_pi_f = 2.0 * np.pi * frequency
         self.meandering_vy = amplitude * two_pi_f * np.cos(two_pi_f * current_time)

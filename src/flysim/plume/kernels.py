@@ -83,7 +83,7 @@ def update_puffs_sinusoid_numba(
     num_puffs = puffs_array.shape[0]
     sqrt_dt = np.sqrt(dt)
     vx = wind_velocity[0] if abs(wind_velocity[0]) > 1e-4 else 0.4
-    ramp_L = 5.0
+    ramp_l = 5.0
     two_pi_f = 2.0 * np.pi * frequency
 
     for i in range(num_puffs):
@@ -96,7 +96,7 @@ def update_puffs_sinusoid_numba(
 
         # Onda sinusoidal com rampa de transição suave a partir da fonte
         dx = max(0.0, puffs_array[i, 0] - src_x)
-        ramp = np.tanh(dx / ramp_L)
+        ramp = np.tanh(dx / ramp_l)
         target_center_y = src_y + amplitude * ramp * np.sin(two_pi_f * (current_time - dx / vx))
 
         # Posição transversal com componente turbulenta
@@ -211,10 +211,10 @@ def get_plume_center_y(x, t, plume, config):
         sin_cfg = config.get("sinusoid_meander_config", {})
         amplitude = float(sin_cfg.get("amplitude", sin_cfg.get("v_var", 8.0)))
         frequency = float(sin_cfg.get("frequency", 0.018))
-        ramp_L = 5.0
+        ramp_l = 5.0
         two_pi_f = 2.0 * np.pi * frequency
         vx = config["mean_wind_velocity"][0] if abs(config["mean_wind_velocity"][0]) > 1e-4 else 0.4
         dx = max(0.0, x - src_x)
-        ramp = np.tanh(dx / ramp_L)
+        ramp = np.tanh(dx / ramp_l)
         return float(src_y + amplitude * ramp * np.sin(two_pi_f * (t - dx / vx)))
     return float(src_y)
