@@ -46,9 +46,3 @@ ignore = ["E501"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["flysim"]
-
-[tool.pytest.ini_options]
-minversion = "8.0"
-testpaths = ["tests"]
-pythonpath = ["src"]
-addopts = "-v"
